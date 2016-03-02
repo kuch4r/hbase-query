@@ -11,6 +11,6 @@ namespace kuchar\HbaseQuery\Fields;
 
 class FieldNumber extends  Field {
     public function clean( $value ) {
-        return new intval($value);
+        return intval($value);
     }
 }
