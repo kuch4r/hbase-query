@@ -9,6 +9,7 @@
 require_once('../../php-smart-hbase/src/SmartHConnection.php');
 require_once('Core/HBaseTable.php');
 require_once('Core/HBaseQuery.php');
+require_once('Core/HBaseTableQuery.php');
 require_once('Core/HBaseManager.php');
 require_once('Core/FieldsSet.php');
 require_once('Core/ResultCollection.php');
@@ -20,6 +21,7 @@ use kuchar\smarthbase\SmartHConnection;
 use kuchar\smarthbase\SmartHTable;
 use kuchar\HbaseQuery\Core\HBaseTable;
 use kuchar\HbaseQuery\Core\HBaseQuery;
+use \kuchar\HbaseQuery\Core\HBaseTableQuery;
 use kuchar\HbaseQuery\Core\HBaseManager;
 use kuchar\HbaseQuery\Fields\FieldString;
 use kuchar\HbaseQuery\Fields\FieldNumber;
@@ -49,16 +51,22 @@ class HBaseFacebookPostsTable extends HBaseTable {
     }
 }
 
-class HBaseFacebookPostsTableQuery extends HBaseQuery {
+/*class HBaseFacebookPostsTableQuery extends HBaseQuery {
     public function queryBasic( $params ) {
         $table = $this->connection->table('sotrender_facebook_page');
         return $table->rows(array('100103120077551','100064773659'));
+    }
+}*/
+
+class HBaseFacebookPostsTableQuery extends HBaseTableQuery {
+    public function configure() {
+        $this->setTableName('sotrender_facebook_page');
     }
 }
 
 $manager = new HBaseManager('cdhn1.snrs.pl:9090');
 $q = $manager->getQuery('HBaseFacebookPostsTable');
-$col = $q->query('queryBasic');
+$col = $q->rows(array('100103120077551','100064773659'));
 
 foreach( $col as $row ) {
     var_dump($row);
