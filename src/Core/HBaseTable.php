@@ -11,7 +11,7 @@ namespace kuchar\HbaseQuery\Core;
 
 use kuchar\HbaseQuery\Fields\Field;
 
-abstract class QueryTable {
+abstract class HBaseTable {
     protected $fieldsSet;
     protected $columnFamily;
     /**
@@ -55,28 +55,6 @@ abstract class QueryTable {
     }
 
 
-    /**
-     * executes query and returns hydrated results
-     *
-     * @param string $query - name of the query
-     * @param array $params - params for the query
-     */
-    protected function query($query, $params = array(), $fields = null ) {
-        /* getting */
-        if( !method_exists( $this, $query) ) {
-            throw new \ErrorException('Query "'.$query.'" doesn\'t exists');
-        }
-        /* performe query */
-        $data = call_user_func(array($this,$query), $params);
 
-        $newfs= new FieldsSet( $this->fieldsSet->getFields( $fields ) );
 
-        $collection = new ResultCollection( $newfs );
-        foreach( $data as $key => $row ) {
-            $row['key'] = $key;
-            $collection->add( $this->fieldsSet->clean($row, $fields) );
-        }
-
-        return $collection;
-    }
 }
