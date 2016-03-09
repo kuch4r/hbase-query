@@ -37,8 +37,8 @@ class HBaseManager {
         if( !class_exists($table) ) {
             throw new \Exception('Table class for this table doesn\'t exists: '.$table);
         }
-        if( !is_subclass_of( $table, 'HBaseTable', true)) {
-            //throw new \Exception($table.'Table is not subclass of HBaseTable');
+        if( !is_subclass_of( $table, 'kuchar\HbaseQuery\Core\HBaseTable', true)) {
+            throw new \Exception($table.'Table is not subclass of HBaseTable');
         }
         $this->tables[$table] = new $table();
     }
@@ -50,8 +50,8 @@ class HBaseManager {
         if( !class_exists($table.'Query') ) {
             throw new \Exception('Query class for this table doesn\'t exists: '.$table);
         }
-        if( !is_subclass_of( $table.'Query', 'HBaseQuery', true)) {
-            //throw new \Exception($table.'Query is not subclass of HBaseQuery');
+        if( !is_subclass_of( $table.'Query', 'kuchar\HbaseQuery\Core\HBaseQuery', true)) {
+            throw new \Exception($table.'Query is not subclass of HBaseQuery');
         }
         $tablequery = $table.'Query';
 
