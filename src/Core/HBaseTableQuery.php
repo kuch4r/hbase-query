@@ -10,7 +10,7 @@ namespace kuchar\HbaseQuery\Core;
 
 
 abstract class HBaseTableQuery extends HBaseQuery{
-    protected $table;
+    protected $table_name;
 
     public function __construct($connection, $table)
     {
@@ -19,7 +19,7 @@ abstract class HBaseTableQuery extends HBaseQuery{
     }
 
     protected function setTableName( $name ) {
-        $this->table = $name;
+        $this->table_name = $name;
     }
     abstract function configure();
 
@@ -47,11 +47,11 @@ abstract class HBaseTableQuery extends HBaseQuery{
     }
 
     protected function queryRow( $params, $fields ) {
-        return $this->connection->table($this->table)->row( $params, $fields );
+        return $this->connection->table($this->table_name)->row( $params, $fields );
     }
 
     protected function queryRows( $params, $fields ) {
-        return $this->connection->table($this->table)->rows( $params, $fields );
+        return $this->connection->table($this->table_name)->rows( $params, $fields );
     }
 
     protected function queryScanStartStop( $params, $fields ) {
@@ -61,7 +61,7 @@ abstract class HBaseTableQuery extends HBaseQuery{
         if( !isset($param['limit'])) {
             $params['limit'] = null;
         }
-        return $this->connection->table($this->table)->scan( $params['start'],
+        return $this->connection->table($this->table_name)->scan( $params['start'],
             $params['stop'], null, $fields, null, 1000, $params['limit']);
     }
 
@@ -72,7 +72,7 @@ abstract class HBaseTableQuery extends HBaseQuery{
         if( !isset($param['limit'])) {
             $params['limit'] = null;
         }
-        return $this->connection->table($this->table)->scan( null, null,
+        return $this->connection->table($this->table_name)->scan( null, null,
             $params['prefix'], $fields, null, 1000, $params['limit']);
     }
 }
