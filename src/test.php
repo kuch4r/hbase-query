@@ -58,7 +58,7 @@ class HBaseFacebookPostsTableQuery extends HBaseQuery {
 
 $manager = new HBaseManager('cdhn1.snrs.pl:9090');
 $q = $manager->getQuery('HBaseFacebookPostsTable');
-$col = $q->query('basicQuery');
+$col = $q->query('queryBasic');
 
 foreach( $col as $row ) {
     var_dump($row);

@@ -7,7 +7,7 @@
  */
 
 namespace kuchar\HbaseQuery\Core;
-
+use kuchar\smarthbase\SmartHConnection;
 
 class HBaseManager {
     protected $tables;
@@ -38,7 +38,7 @@ class HBaseManager {
             throw new \Exception('Table class for this table doesn\'t exists: '.$table);
         }
         if( !is_subclass_of( $table, 'HBaseTable', true)) {
-            throw new \Exception($table.'Table is not subclass of HBaseTable');
+            //throw new \Exception($table.'Table is not subclass of HBaseTable');
         }
         $this->tables[$table] = new $table();
     }
@@ -51,11 +51,11 @@ class HBaseManager {
             throw new \Exception('Query class for this table doesn\'t exists: '.$table);
         }
         if( !is_subclass_of( $table.'Query', 'HBaseQuery', true)) {
-            throw new \Exception($table.'Query is not subclass of HBaseQuery');
+            //throw new \Exception($table.'Query is not subclass of HBaseQuery');
         }
-        $table .= 'Query';
+        $tablequery = $table.'Query';
 
-        return new $table( $this->getConnection(), $this->tables[$table]);
+        return new $tablequery( $this->getConnection(), $this->tables[$table]);
     }
 
     public function __destruct() {
@@ -68,7 +68,7 @@ class HBaseManager {
         if( !count($this->hosts)) {
             throw new \Exception('Hosts array is empty');
         }
-        return $this->getConnectionForHost(array_rand($this->hosts));
+        return $this->getConnectionForHost($this->hosts[array_rand($this->hosts)]);
     }
 
     protected function getConnectionForHost( $host ) {
