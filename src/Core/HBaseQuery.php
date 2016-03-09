@@ -24,13 +24,13 @@ class HBaseQuery {
      * @param string $query - name of the query
      * @param array $params - params for the query
      */
-    public function query($query, $params = array(), $fields = null ) {
+    public final function query($query, $params = array(), $fields = null ) {
         /* getting */
         if( !method_exists( $this, $query) ) {
             throw new \ErrorException('Query "'.$query.'" doesn\'t exists');
         }
         /* performe query */
-        $data = call_user_func(array($this,$query), $params);
+        $data = call_user_func(array($this,$query), $params, $fields);
 
         $fieldSet = $this->table->getFieldSet();
 
