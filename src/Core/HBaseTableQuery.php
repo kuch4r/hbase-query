@@ -23,15 +23,15 @@ abstract class HBaseTableQuery extends HBaseQuery{
     }
     abstract function configure();
 
-    public function row( $key, $fields = array() ) {
+    public function row( $key, $fields = null ) {
         return $this->query('queryRow', $key, $fields);
     }
 
-    public function rows( $keys, $fields = array() ) {
+    public function rows( $keys, $fields = null ) {
         return $this->query('queryRows', $keys, $fields);
     }
 
-    public function scanStartStop( $start, $stop = null, $fields = array(), $limit = null ) {
+    public function scanStartStop( $start, $stop = null, $fields = null, $limit = null ) {
         $this->query('queryScanStartStop', array(
             'start' => $start,
             'stop'  => $stop,
@@ -39,7 +39,7 @@ abstract class HBaseTableQuery extends HBaseQuery{
         ), $fields);
     }
 
-    public function scanPrefix( $prefix, $fields = array(), $limit = null ) {
+    public function scanPrefix( $prefix, $fields = null, $limit = null ) {
         $this->query('queryScanPrefix', array(
             'prefix' => $prefix,
             'limit' => $limit
