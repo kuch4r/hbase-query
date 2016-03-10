@@ -60,6 +60,10 @@ abstract class Field  {
     }
 
     public function getColumnName() {
+        /* row key is treated in special way (without column family) */
+        if( $this->family == null && $this->column == 'key' ) {
+            return $this->column;
+        }
         if( is_null($this->family)) {
             throw new \ErrorException('Family cannot be null');
         }
