@@ -44,7 +44,7 @@ class HBaseFacebookPostsTable extends HBaseTable {
     public function configure() {
         $this->setColumnFamily('page');
         $this->fields( array(
-            new FieldString('key', null, 'key'),
+            new FieldString('key', FieldString::KEY_COLUMN ),
             new FieldString('name'),
             new FieldString('link'),
             new FieldNumber('likes')

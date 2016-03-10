@@ -12,13 +12,24 @@ abstract class Field  {
     protected $name;
     protected $family;
     protected $column;
+    protected $keyColumn;
+
+    const KEY_COLUMN = -1;
+
     /**
      * Field constructor.
      */
     public final function __construct( $name, $column = null, $family = null ) {
         $this->name = $name;
-        $this->family = $family;
-        $this->column = is_null($column) ? $name : $column;
+        if( $column === self::KEY_COLUMN ) {
+            $this->family    = null;
+            $this->keyColumn = true;
+            $this->column    = 'key';
+        } else {
+            $this->keyColumn = false;
+            $this->family = $family;
+            $this->column = is_null($column) ? $name : $column;
+        }
         $this->configure();
     }
 
@@ -48,7 +59,7 @@ abstract class Field  {
     }
 
     public function hasFamily() {
-        return !is_null($this->family);
+        return !$this->keyColumn && !is_null($this->family);
     }
 
     public function getName() {
@@ -61,9 +72,10 @@ abstract class Field  {
 
     public function getColumnName() {
         /* row key is treated in special way (without column family) */
-        if( $this->family == null && $this->column == 'key' ) {
+        if( $this->keyColumn ) {
             return $this->column;
         }
+
         if( is_null($this->family)) {
             throw new \ErrorException('Family cannot be null');
         }
