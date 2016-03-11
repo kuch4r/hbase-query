@@ -1,0 +1,22 @@
+{
+    "name": "kuchar/hbase-query",
+    "type": "library",
+    "description": "Hbase extension",
+    "keywords": [
+        "hbase",
+        "extensions"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Paweł Kucharski",
+            "email": "p.kucharski@snrs.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "autoload": {
+        "psr-0": { "kuchar\\HbaseQuery\\": "src/" }
+    }
+}
