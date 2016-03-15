@@ -121,14 +121,7 @@ class FieldsSet {
                 continue;
             }
 
-            $ret = $field->cleanValues( $values );
-            if( is_array( $ret ) ) {
-                foreach( $ret as $k => $v ) {
-                    $result[$field->getName().'#'.$k] = $v;
-                }
-            } else {
-                $result[$field->getName()] = $ret;
-            }
+            $result[$field->getName()] = $field->cleanValues( $values );
         }
         return $result;
     }
