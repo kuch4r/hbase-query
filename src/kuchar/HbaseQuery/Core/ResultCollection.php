@@ -47,6 +47,19 @@ class ResultCollection implements  \Iterator {
         return isset($this->data[$this->position]);
     }
 
+    public function toArray() {
+        return $this->data;
+    }
+
+    public function toAssocArray() {
+        $result = array();
+        foreach( $this->data as $row ){
+            $result[$row['key']] = $row;
+        }
+        return $result;
+    }
+
+
     public function generator() {
         foreach( $this->data as $d ){
             yield $d;
