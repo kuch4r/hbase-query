@@ -70,6 +70,10 @@ abstract class Field  {
         return $this->column;
     }
 
+    public function isKeyColumn() {
+        return $this->keyColumn;
+    }
+
     public function getColumnName() {
         /* row key is treated in special way (without column family) */
         if( $this->keyColumn ) {

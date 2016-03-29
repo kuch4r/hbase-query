@@ -29,12 +29,13 @@ class HBaseQuery {
         if( !method_exists( $this, $query) ) {
             throw new \ErrorException('Query "'.$query.'" doesn\'t exists');
         }
-        /* performe query */
-        $data = call_user_func(array($this,$query), $params, $fields);
-
         $fieldSet = $this->table->getFieldSet();
 
-        $newfs= new FieldsSet( $fieldSet->getFields( $fields ) );
+        /* performe query */
+        $data = call_user_func( array($this,$query), $params,
+                    $fieldSet->getQueryFields($fields) );
+
+        $newfs = new FieldsSet( $fieldSet->getFields( $fields ) );
 
         $collection = new ResultCollection( $newfs );
         foreach( $data as $key => $row ) {

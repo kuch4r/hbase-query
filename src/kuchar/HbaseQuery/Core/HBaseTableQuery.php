@@ -32,7 +32,7 @@ abstract class HBaseTableQuery extends HBaseQuery{
     }
 
     public function scanStartStop( $start, $stop = null, $fields = null, $limit = null ) {
-        $this->query('queryScanStartStop', array(
+        return $this->query('queryScanStartStop', array(
             'start' => $start,
             'stop'  => $stop,
             'limit' => $limit
@@ -40,7 +40,7 @@ abstract class HBaseTableQuery extends HBaseQuery{
     }
 
     public function scanPrefix( $prefix, $fields = null, $limit = null ) {
-        $this->query('queryScanPrefix', array(
+        return $this->query('queryScanPrefix', array(
             'prefix' => $prefix,
             'limit' => $limit
         ), $fields);

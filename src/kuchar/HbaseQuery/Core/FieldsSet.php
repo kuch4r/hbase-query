@@ -92,6 +92,20 @@ class FieldsSet {
         }
     }
 
+    public function getQueryFields( $fields = null ) {
+        if( is_null($fields)) {
+            return null;
+        }
+        $result = array();
+        foreach( $fields as $name ) {
+            $field = $this->getField($name);
+            if( !$field->isKeyColumn() ) {
+                $result[] = $field->getColumnName();
+            }
+        }
+        return $result;
+    }
+
     /**
      * Clean values
      *
