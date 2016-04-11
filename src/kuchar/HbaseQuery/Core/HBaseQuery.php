@@ -35,6 +35,11 @@ class HBaseQuery {
         $data = call_user_func( array($this,$query), $params,
                     $fieldSet->getQueryFields($fields) );
 
+        /* simple query - just return array*/
+        if( !is_array($data) ) {
+            return $fieldSet->clean($data,$fields);    
+        } 
+        
         $newfs = new FieldsSet( $fieldSet->getFields( $fields ) );
 
         $collection = new ResultCollection( $newfs );
