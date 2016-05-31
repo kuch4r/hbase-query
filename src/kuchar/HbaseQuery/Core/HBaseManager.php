@@ -64,7 +64,7 @@ class HBaseManager {
         }
     }
 
-    protected function getConnection() {
+    public function getConnection() {
         if( !count($this->hosts)) {
             throw new \Exception('Hosts array is empty');
         }
