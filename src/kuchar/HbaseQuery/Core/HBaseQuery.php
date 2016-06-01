@@ -36,7 +36,7 @@ class HBaseQuery {
                     $fieldSet->getQueryFields($fields) );
 
         /* simple query - just return array*/
-        if( !is_array($data) ) {
+        if( is_array($data) ) {
             return $fieldSet->clean($data,$fields);    
         } 
         
