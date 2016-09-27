@@ -15,9 +15,12 @@ class FieldHll extends  Field {
         if( !$data ) {
             throw new FieldCleanException();
         }
-        $obj = hllp_cnt_init($data,strlen($data)-3);
+        $obj = hllp_cnt_init($data,strlen($data));
         if( !$obj ) {
-            throw new FieldCleanException();
+            $obj = hllp_cnt_init($data,strlen($data)-3);
+            if( !$obj ) {
+                throw new FieldCleanException();
+            }
         }
         return $obj;
     }
