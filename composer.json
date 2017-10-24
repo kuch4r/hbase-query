@@ -14,7 +14,8 @@
         }
     ],
     "require": {
-        "php": ">=5.4"
+        "php": ">=5.4",
+        "kuchar/php-smart-hbase": "^1.0.0"
     },
     "autoload": {
         "psr-0": { "kuchar\\HbaseQuery\\": "src/" }
