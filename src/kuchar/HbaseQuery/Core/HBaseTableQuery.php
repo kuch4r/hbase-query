@@ -25,8 +25,8 @@ abstract class HBaseTableQuery extends HBaseQuery{
     
     public function getTableName()
     {
-        return $this->table_name;
-    }
+        return $this->table_name;
+    }
     
     abstract function configure();
 
