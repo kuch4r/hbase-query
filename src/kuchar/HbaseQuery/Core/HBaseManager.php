@@ -59,8 +59,10 @@ class HBaseManager {
     }
 
     public function __destruct() {
-        foreach( $this->connections as $key => $conn ) {
-            $conn->close();
+        if( $this->connections ) {
+            foreach ($this->connections as $key => $conn) {
+                $conn->close();
+            }
         }
     }
 
