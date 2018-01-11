@@ -58,8 +58,12 @@ class HBaseManager {
         return new $tablequery( $this->getConnection(), $this->tables[$table]);
     }
 
-    public function __destruct() {
-        foreach( $this->connections as $key => $conn ) {
+    public function __destruct()
+    {
+        if (!$this->connections) {
+            return;
+        }
+        foreach ($this->connections as $key => $conn) {
             $conn->close();
         }
     }
