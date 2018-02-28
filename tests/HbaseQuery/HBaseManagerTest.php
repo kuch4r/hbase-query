@@ -29,7 +29,7 @@ class HBaseManagerTest extends TestCase {
     public function setUp()
     {
         $connection = new SmartHConnection(THRIFT_TEST_URI);
-        $connection->nativeCreateTable(THRIFT_TEST_TABLE, THRIFT_TEST_CF);
+        $connection->nativeCreateTable(THRIFT_TEST_TABLE, [THRIFT_TEST_CF]);
 
         $table = $connection->table(THRIFT_TEST_TABLE);
         $table->put('row1', [THRIFT_TEST_CF.':name' => 'val1']);
