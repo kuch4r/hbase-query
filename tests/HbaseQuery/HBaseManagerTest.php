@@ -2,6 +2,8 @@
 
 namespace kuchar\Tests\HbaseQuery;
 
+use Hbase\AlreadyExists;
+use Hbase\ColumnDescriptor;
 use kuchar\smarthbase\SmartHConnection;
 use PHPUnit\Framework\TestCase;
 use kuchar\HbaseQuery\Core\HBaseTable;
@@ -29,7 +31,9 @@ class HBaseManagerTest extends TestCase {
     public function setUp()
     {
         $connection = new SmartHConnection(THRIFT_TEST_URI);
-        $connection->nativeCreateTable(THRIFT_TEST_TABLE, [THRIFT_TEST_CF]);
+        try {
+            $connection->nativeCreateTable(THRIFT_TEST_TABLE, [new ColumnDescriptor(THRIFT_TEST_CF)]);
+        } catch(AlreadyExists $e) {}
 
         $table = $connection->table(THRIFT_TEST_TABLE);
         $table->put('row1', [THRIFT_TEST_CF.':name' => 'val1']);
