@@ -2,7 +2,6 @@
     "name": "kuchar/hbase-query",
     "type": "library",
     "description": "Hbase extension",
-    "version": "1.0.3",
     "keywords": [
         "hbase",
         "extensions"
