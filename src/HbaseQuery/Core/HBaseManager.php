@@ -73,8 +73,7 @@ class HBaseManager {
 
     protected function getConnectionForHost( $host ) {
         if( !isset($this->connections[$host])) {
-            list($h, $p) = explode(':',$host);
-            $this->connections[$host] = new SmartHConnection( $h, $p );
+            $this->connections[$host] = new SmartHConnection( $host );
         }
         return $this->connections[$host];
     }
