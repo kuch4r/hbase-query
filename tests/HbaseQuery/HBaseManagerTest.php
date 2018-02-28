@@ -32,7 +32,7 @@ class HBaseManagerTest extends TestCase {
     {
         $connection = new SmartHConnection(THRIFT_TEST_URI);
         try {
-            $connection->nativeCreateTable(THRIFT_TEST_TABLE, [new ColumnDescriptor(THRIFT_TEST_CF)]);
+            $connection->nativeCreateTable(THRIFT_TEST_TABLE, [new ColumnDescriptor(['name' => THRIFT_TEST_CF])]);
         } catch(AlreadyExists $e) {}
 
         $table = $connection->table(THRIFT_TEST_TABLE);
