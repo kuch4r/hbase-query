@@ -18,20 +18,30 @@ abstract class HBaseTableQuery extends HBaseQuery{
         $this->configure();
     }
 
-    protected function setTableName( $name ) {
+    protected function setTableName( $name )
+    {
         $this->table_name = $name;
     }
+    
+    public function getTableName()
+    {
+        return $this->table_name;
+    }
+    
     abstract function configure();
 
-    public function row( $key, $fields = null ) {
+    public function row( $key, $fields = null )
+    {
         return $this->query('queryRow', $key, $fields);
     }
 
-    public function rows( $keys, $fields = null ) {
+    public function rows( $keys, $fields = null )
+    {
         return $this->query('queryRows', $keys, $fields);
     }
 
-    public function scanStartStop( $start, $stop = null, $fields = null, $limit = null ) {
+    public function scanStartStop( $start, $stop = null, $fields = null, $limit = null )
+    {
         return $this->query('queryScanStartStop', array(
             'start' => $start,
             'stop'  => $stop,
@@ -39,22 +49,26 @@ abstract class HBaseTableQuery extends HBaseQuery{
         ), $fields);
     }
 
-    public function scanPrefix( $prefix, $fields = null, $limit = null ) {
+    public function scanPrefix( $prefix, $fields = null, $limit = null )
+    {
         return $this->query('queryScanPrefix', array(
             'prefix' => $prefix,
             'limit' => $limit
         ), $fields);
     }
 
-    protected function queryRow( $params, $fields ) {
+    protected function queryRow( $params, $fields )
+    {
         return $this->connection->table($this->table_name)->row( $params, $fields );
     }
 
-    protected function queryRows( $params, $fields ) {
+    protected function queryRows( $params, $fields )
+    {
         return $this->connection->table($this->table_name)->rows( $params, $fields );
     }
 
-    protected function queryScanStartStop( $params, $fields ) {
+    protected function queryScanStartStop( $params, $fields )
+    {
         if( !isset($params['start']) || !isset($params['stop'])) {
             throw new \Exception('Params must contains "start" and "stop" keys');
         }
@@ -65,7 +79,8 @@ abstract class HBaseTableQuery extends HBaseQuery{
             $params['stop'], null, $fields, null, 1000, $params['limit']);
     }
 
-    protected function queryScanPrefix( $params, $fields ) {
+    protected function queryScanPrefix( $params, $fields )
+    {
         if( !isset($params['prefix'])) {
             throw new \Exception('Params must contains "prefix" key');
         }

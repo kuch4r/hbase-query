@@ -8,7 +8,6 @@
 
 namespace kuchar\HbaseQuery\Fields;
 
-
 class FieldHll extends  Field {
     public function clean( $value ) {
         $data = lz4_uncompress( $value );
@@ -22,6 +21,7 @@ class FieldHll extends  Field {
                 throw new FieldCleanException();
             }
         }
+
         return $obj;
     }
 }
