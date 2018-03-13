@@ -9,7 +9,7 @@
 namespace kuchar\HbaseQuery\Fields;
 
 
-class FieldFloat extends  Field {
+class FieldFloat extends Field {
     public function clean( $value ) {
         return (float) $value;
     }
