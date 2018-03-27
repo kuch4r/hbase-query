@@ -8,8 +8,31 @@
 
 namespace kuchar\HbaseQuery\Fields;
 
-class FieldHll extends  Field {
-    public function clean( $value ) {
+
+class FieldHll extends Field {
+    /**
+     * @param $value
+     * @return mixed
+     * @throws FieldCleanException
+     * @throws MissingHllModuleException
+     */
+    public function clean($value ) {
+        if( class_exists('HyperLogLogPlusPlus')) {
+            return $this->cleanNew($value);
+        }
+        if( function_exists('hllp_cnt_init')) {
+            return $this->cleanOld($value);
+        }
+
+        throw new MissingHllModuleException();
+    }
+
+    /**
+     * @param $value
+     * @return mixed
+     * @throws FieldCleanException
+     */
+    protected function cleanOld($value) {
         $data = lz4_uncompress( $value );
         if( !$data ) {
             throw new FieldCleanException();
@@ -22,6 +45,25 @@ class FieldHll extends  Field {
             }
         }
 
+        return $obj;
+    }
+
+
+    /**
+     * @param $value
+     * @return HyperLogLogPlusPlus
+     * @throws FieldCleanException
+     */
+    protected function cleanNew($value) {
+        $data = lz4_uncompress( $value );
+        if( !$data ) {
+            throw new FieldCleanException();
+        }
+
+        $obj = new HyperLogLogPlusPlus(strlen($data),$data);
+        if( !$obj ) {
+            throw new FieldCleanException();
+        }
         return $obj;
     }
 }

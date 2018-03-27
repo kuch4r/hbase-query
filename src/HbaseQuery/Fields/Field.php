@@ -88,3 +88,5 @@ abstract class Field  {
 }
 
 class FieldCleanException extends \Exception {}
+
+class MissingHllModuleException extends \Exception {}
