@@ -51,7 +51,7 @@ class FieldHll extends Field {
 
     /**
      * @param $value
-     * @return HyperLogLogPlusPlus
+     * @return \HyperLogLogPlusPlus
      * @throws FieldCleanException
      */
     protected function cleanNew($value) {
@@ -60,7 +60,7 @@ class FieldHll extends Field {
             throw new FieldCleanException();
         }
 
-        $obj = new HyperLogLogPlusPlus(strlen($data),$data);
+        $obj = new \HyperLogLogPlusPlus(strlen($data),$data);
         if( !$obj ) {
             throw new FieldCleanException();
         }
